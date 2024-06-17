@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserposts } from './features/Slice'
 
 export default function Userdetails() {
+  const {UserId}=useSelector((state)=>state.session)
+  const dispatch=useDispatch()
+ 
+  useEffect(()=>{
+    dispatch(fetchUserposts(UserId))
+  },[dispatch,UserId])
+
   return (
     <div>
       <Navbar />
@@ -25,6 +34,9 @@ export default function Userdetails() {
           <textarea type='text' placeholder='I am new Innstagram User' className='' cols="35" />
           <label>Hobbies</label>
           <textarea type='text' placeholder='I am new Innstagram User' className='' cols="35" />
+        </div>
+        <div className='bg-green-400 h-96 m-2'>
+            
         </div>
     <Footer/>
     </div>

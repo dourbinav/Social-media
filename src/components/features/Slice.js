@@ -1,46 +1,47 @@
 import { createSlice ,createAsyncThunk} from "@reduxjs/toolkit";
-import { fetchPosts,AddtoPosts,fetchUsers, UserLogin ,UserRegister} from "./Api";
+import { fetchPosts,AddtoPosts,fetchUsers,fetchUserPosts} from "./Api";
+
 
 const initialState ={
     posts:[],
-    SearchUser:[],
     status:"idle"
 }
 
-export const User =createAsyncThunk(
-  'user/login',async(data)=>{
-    const response =await UserLogin(data);
-    return response
-  },
-)
-export const Userregister =createAsyncThunk(
-  'user/register',async(data)=>{
-    const response =await UserRegister(data);
-    return response
-  },
-)
+
+
 
 export const fetchAllposts = createAsyncThunk(
     'posts/fetchpost',
     async () => {
       const response = await fetchPosts();
-      // The value we return becomes the `fulfilled` action payload
       return response.data;
     }
   );
+
+  export const fetchUserposts = createAsyncThunk(
+    'posts/fetchUserpost',
+    async (data) => {
+      const response = await fetchUserPosts(data);
+      return response.data;
+    }
+  );
+
   export const Addpost = createAsyncThunk(
     'posts/addpost',
-    async ({file,caption}) => {
-      const response = await AddtoPosts(file,caption);
-      // The value we return becomes the `fulfilled` action payload
-      return response.data;
+    async ({ file, caption, userid }) => {
+        const formData = new FormData();
+        formData.append('file', file[0]); // Ensure file[0] is used to get the selected file
+        formData.append('caption', caption);
+        formData.append('userid', userid); // Include the user ID
+        const response = await AddtoPosts(formData);
+        return response.data;
     }
-  );
-  export const fetchAllser = createAsyncThunk(
+)
+
+  export const fetchAlluser = createAsyncThunk(
     'posts/fetchpost',
     async () => {
       const response = await fetchUsers();
-      // The value we return becomes the `fulfilled` action payload
       return response.data;
     }
   );
@@ -48,7 +49,6 @@ export const fetchAllposts = createAsyncThunk(
   export const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
     },
     extraReducers: (builder) => {

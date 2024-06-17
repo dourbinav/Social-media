@@ -11,7 +11,6 @@ export const UserLoginAction = createAsyncThunk(
   "user/login",
   async (userData, { rejectWithValue }) => {
     try {
-      console.log(userData)
       const response = await UserLogin(userData);
       return response.data; // Assuming response.data contains relevant data from API
     } catch (error) {

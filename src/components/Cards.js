@@ -2,15 +2,14 @@ import React from 'react'
 
 export default function Cards({post}) {
     
-    console.log(post)
   return (
     <div className=' p-1 z-30 '>
         <div className='bg-indigo-300  p-1  '>
             <div className='aspect-square relative  p-1'>
                     <div className=' flex items-center gap-2 relative '>
-                        <p className='bg-blue-700 w-10 aspect-square rounded-full block'></p>
+                        <img alt='chitra' src={post.Userid.Profile_Picture} className='bg-green-300 w-10 aspect-square rounded-full block'></img>
                             <div className='flex flex-col '>
-                                <h2>{post.username}</h2>
+                                <h2>{post.Userid.Username}</h2>
                                 <h2 className='text-xs'>Address </h2>
                              </div>
                              

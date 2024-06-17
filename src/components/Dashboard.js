@@ -11,8 +11,6 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post.posts.posts) || []
 
-
-  console.log(posts)
   useEffect(()=>{
     dispatch(fetchAllposts())
   },[dispatch])

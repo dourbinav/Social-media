@@ -1,11 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link,  useNavigate } from "react-router-dom";
 import { Formik,Form,ErrorMessage,Field } from "formik";
 import { validationRegisterSchema } from "./Validation/Validation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserRegisterAction } from "./features/Authslice";
 
 export default function Register() {
+  const navigate=useNavigate()
+  const {user}=useSelector((state)=>state.auth)
 
   const dispatch=useDispatch()
 
@@ -16,6 +18,11 @@ export default function Register() {
     Fullname:""
   }
 
+  useEffect(() => {
+    if(user){
+      navigate("/Userdetail")
+    }
+      }, [user,navigate]);
 
   return (
     <div>

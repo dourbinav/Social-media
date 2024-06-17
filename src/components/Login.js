@@ -1,19 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React ,{useEffect}from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik,Form,ErrorMessage,Field } from "formik";
 import ValidationSchema from "./Validation/Validation";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector} from "react-redux";
 import { UserLoginAction } from "./features/Authslice";
+import { login } from "./features/SessionSlice";
 
 
 export default function Login() {
   const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const {user} = useSelector((state) => state.auth);
+  
 
   const initialvalues = {
    username:"",
     password:""
   }
   const validationSchema=ValidationSchema
+  
+
+  useEffect(() => {
+    if (user) {
+      console.log(user.data)
+      dispatch(login(user.data))
+      navigate("/dashboard");
+    }
+   }, [user,navigate,dispatch]);
+
+
+
 
   return (
     <div className=" flex">
