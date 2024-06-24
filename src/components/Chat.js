@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import socket from './socket';  // Assuming your socket.js file is in the same directory
+import { Link } from 'react-router-dom';
 
 export default function Chat() {
   const [message, setMessage] = useState('');
@@ -33,7 +34,8 @@ export default function Chat() {
 
   return (
     <div className='bg-black h-screen relative'>
-      <div className='flex space-x-2 py-2 px-4 items-center'>
+      <Link to="/Message"><button  className='text-white text-2xl  m-1 p-1'> &larr;</button></Link>
+      <div className='flex space-x-2 py-2 px-4 items-center'> 
         <div className='w-12 aspect-square rounded-full bg-black'>
           <img
             alt='/'

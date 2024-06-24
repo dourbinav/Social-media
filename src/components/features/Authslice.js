@@ -30,14 +30,11 @@ export const UserRegisterAction = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await UserRegister(userData);
-      return response.data; // Assuming response.data contains relevant data from API
+      return response.data; 
     } catch (error) {
       if (error.response && error.response.data) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         return rejectWithValue(error.response.data);
       } else {
-        // Something happened in setting up the request that triggered an Error
         return rejectWithValue(error.message);
       }
     }

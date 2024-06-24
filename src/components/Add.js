@@ -11,13 +11,17 @@ export default function Add() {
     const userid = useSelector((state) => state.session.UserId);
 
     function handleFileChange(event) {
-        const selectedFile = event.target.files;
+        const selectedFile = event.target.files[0];
         setFile(selectedFile);
     }
 
     function handleSubmit() {
-        if (file && file.length > 0) {
-            dispatch(Addpost({ file, caption, userid }));
+        if (file) {
+            const formData = new FormData();
+            formData.append("file", file); 
+            formData.append("caption", caption);
+            formData.append("userid", userid);
+            dispatch(Addpost(formData));
         } else {
             alert('Please select a file to upload.');
         }
@@ -29,8 +33,8 @@ export default function Add() {
             <div className='bg-black p-2 h-screen text-white'>
                 <div className='h-64 border-8 border-slate-200 flex justify-center items-center'>
                     <div className='text-xs'>
-                        <input type="file" onChange={handleFileChange} />
-                        {file && file.length > 0 && <img src={URL.createObjectURL(file[0])} alt="preview" />}
+                        <input type="file" onChange={handleFileChange} alt='preview' />
+                        {file  && <img src={URL.createObjectURL(file)} alt="preview" />}
                     </div>
                 </div>
                 <div className='flex flex-col space-y-2'>

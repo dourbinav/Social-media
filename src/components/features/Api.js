@@ -26,10 +26,12 @@ export function fetchUsers (){
 }
 
 export function AddtoPosts (data){
-    console.log(data)
+    for (let [key, value] of data.entries()) {
+        console.log(key, value);
+    }
     return axios.post("http://localhost:9090/post/profile",data,{
         headers: {
             'Content-Type': 'multipart/form-data'
         }
-    });
+ } );
 }

@@ -12,9 +12,14 @@ export default function Userdetails() {
     dispatch(fetchUserposts(UserId))
   },[dispatch,UserId])
 
+
+  
+
   return (
     <div>
-      <Navbar />
+      <Navbar
+
+       />
       <div className='h-28 bg-black flex gap-4 items-center justify-around p-1'>
         <div className='w-20 m-2 aspect-square rounded-full bg-black'>
           <img alt='/' className='object-cover h-20 rounded-full' src='https://images.unsplash.com/photo-1459356979461-dae1b8dcb702?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80'/>

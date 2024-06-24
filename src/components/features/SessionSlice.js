@@ -13,7 +13,7 @@ const SessionSlice=createSlice({
             state.UserId=action.payload;
             state.LoginStatus=true
             },
-            logout:(state)=>{
+        logout:(state)=>{
                 state.UserId=null;
                 state.LoginStatus=false
                 }

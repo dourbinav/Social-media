@@ -7,9 +7,6 @@ const initialState ={
     status:"idle"
 }
 
-
-
-
 export const fetchAllposts = createAsyncThunk(
     'posts/fetchpost',
     async () => {
@@ -28,12 +25,9 @@ export const fetchAllposts = createAsyncThunk(
 
   export const Addpost = createAsyncThunk(
     'posts/addpost',
-    async ({ file, caption, userid }) => {
-        const formData = new FormData();
-        formData.append('file', file[0]); // Ensure file[0] is used to get the selected file
-        formData.append('caption', caption);
-        formData.append('userid', userid); // Include the user ID
-        const response = await AddtoPosts(formData);
+    async (data) => {
+        console.log(data)
+        const response = await AddtoPosts(data);
         return response.data;
     }
 )
@@ -65,7 +59,8 @@ export const fetchAllposts = createAsyncThunk(
         })
         .addCase(Addpost.fulfilled, (state, action) => {
           state.status = 'idle';
-          state.posts.push(action.payload);
+          console.log(action)
+          state.posts(...state.posts,action.payload);
         })
     },
   });

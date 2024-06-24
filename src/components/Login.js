@@ -1,13 +1,15 @@
-import React ,{useEffect}from "react";
+import React ,{useEffect, useState}from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik,Form,ErrorMessage,Field } from "formik";
 import ValidationSchema from "./Validation/Validation";
 import { useDispatch,useSelector} from "react-redux";
 import { UserLoginAction } from "./features/Authslice";
 import { login } from "./features/SessionSlice";
+import Loading from "./Loading";
 
 
 export default function Login() {
+  const [loading,setloading]=useState(false)
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const {user} = useSelector((state) => state.auth);
@@ -24,6 +26,7 @@ export default function Login() {
     if (user) {
       console.log(user.data)
       dispatch(login(user.data))
+      setloading(false)
       navigate("/dashboard");
     }
    }, [user,navigate,dispatch]);
@@ -41,14 +44,14 @@ export default function Login() {
         <Formik
           initialValues={initialvalues} 
           validationSchema={validationSchema}
-          onSubmit={(data) =>dispatch(UserLoginAction(data))}
+          onSubmit={(data) =>{dispatch(UserLoginAction(data));setloading(true)}}
                 >
         <Form className="flex justify-center flex-col mt-10 space-y-2" >
           <Field name="username" type="text" className="w-2/3 h-12 m-auto outline-gray-300 bg-gray-100 text-gray-800 p-3" placeholder="Username"></Field>
         <div className="text-red-500 text-left w-2/3 m-auto " >  <ErrorMessage  name="email" /></div>
           <Field name="password" type="text" className="w-2/3 h-12 m-auto outline-gray-300 bg-gray-100 text-gray-800 p-3" placeholder="Password"></Field>
           <div className="text-red-500 text-left w-2/3 m-auto " >  <ErrorMessage  name="password" /></div>
-          <button type="submit" className="w-2/3 m-auto h-10 rounded-md text-white text-center bg-blue-400">Log in</button>
+          <button type="submit" className="w-2/3 m-auto h-10 rounded-md text-white text-center bg-blue-400">{loading?<Loading></Loading>:"Log in"}</button>
         </Form>
         </Formik>
        <div className="flex ">
